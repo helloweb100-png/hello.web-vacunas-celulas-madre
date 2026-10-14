@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre del Negocio | Slogan de Ejemplo</title>
+    <meta name="description" content="Descripción de ejemplo para la plantilla. Servicios profesionales de alta calidad.">
+    <meta name="keywords" content="plantilla, negocio, servicios, ejemplo">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#fdeecf',
+                            dark: '#37260c',
+                            purple: '#97bea9',
+                            purpleDark: '#7aaa94',
+                            accent: '#ffcdb8',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="antialiased">
+
+    <!-- BARRA DE PROGRESO DE SCROLL -->
+    <div id="scroll-progress"></div>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <img src="logo.png" alt="Mi Negocio" class="preloader-logo w-64 md:w-80 mb-8">
+        <div class="spinner-ring"></div>
+        <p class="font-sans text-xs uppercase tracking-[0.3em] text-gray-400 mt-4">Cargando...</p>
+    </div>
+
+    <!-- NAVEGACIÓN -->
+    <header class="fixed top-0 left-0 w-full z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 z-50 group">
+                <img src="logo.png" alt="Mi Negocio logo" class="navbar-logo group-hover:scale-105">
+                <div class="leading-none">
+                    <h1 class="font-serif font-bold text-xl text-brand-dark">Mi Negocio</h1>
+                    <span class="font-sans text-[10px] uppercase tracking-wider text-gray-500">Especialidad Profesional</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 glass px-8 py-3 rounded-full">
+                <a href="#filosofia" class="font-sans text-sm font-medium hover:text-brand-purple transition-colors nav-link">Filosofía</a>
+                <a href="#proceso" class="font-sans text-sm font-medium hover:text-brand-purple transition-colors nav-link">Proceso</a>
+                <a href="#servicios" class="font-sans text-sm font-medium hover:text-brand-purple transition-colors nav-link">Especialidades</a>
+                <a href="#testimonios" class="font-sans text-sm font-medium hover:text-brand-purple transition-colors nav-link">Testimonios</a>
+                <a href="#contacto" class="bg-brand-purple text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-brand-purpleDark transition-all hover:shadow-lg hover:-translate-y-0.5">Agendar Cita</a>
+            </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden text-2xl z-50 text-brand-dark" id="menu-btn">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-brand-light flex flex-col justify-center items-center gap-8 translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] z-40">
+            <a href="#filosofia" class="mobile-link font-serif text-3xl text-brand-dark hover:text-brand-purple transition-colors">Filosofía</a>
+            <a href="#proceso" class="mobile-link font-serif text-3xl text-brand-dark hover:text-brand-purple transition-colors">Proceso</a>
+            <a href="#servicios" class="mobile-link font-serif text-3xl text-brand-dark hover:text-brand-purple transition-colors">Especialidades</a>
+            <a href="#testimonios" class="mobile-link font-serif text-3xl text-brand-dark hover:text-brand-purple transition-colors">Testimonios</a>
+            <a href="#contacto" class="mobile-link mt-4 bg-brand-purple text-white px-8 py-3 rounded-full text-lg font-medium">Agendar Cita</a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- =====================
+             HERO
+        ===================== -->
+        <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-brand-light">
+
+            <!-- Imagen de fondo: consultorio/espacio terapéutico claro -->
+            <div id="hero-bg" class="absolute inset-0 z-0 opacity-20" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center; will-change: transform; transition: transform 0.1s linear;"></div>
+
+            <!-- Overlay crema para mantener tema claro -->
+            <div class="absolute inset-0 z-[1] bg-gradient-to-br from-brand-light/90 via-white/70 to-brand-light/80"></div>
+
+            <!-- Canvas de partículas -->
+            <canvas id="hero-canvas" class="z-[2]"></canvas>
+
+            <!-- Overlay degradado inferior -->
+            <div class="absolute inset-0 z-[3] bg-gradient-to-b from-transparent via-transparent to-brand-light pointer-events-none"></div>
+
+            <!-- Contenido -->
+            <div class="relative z-[10] max-w-5xl mx-auto px-6 text-center mt-16">
+
+                <div class="inline-block mb-6 overflow-hidden">
+                    <span class="gsap-hero-badge inline-block font-sans text-xs uppercase tracking-[0.2em] bg-brand-purple/10 text-brand-purple px-5 py-2 rounded-full border border-brand-purple/20">
+                        Servicio · Especialidad · Ciudad, País
+                    </span>
+                </div>
+
+                <h2 class="gsap-hero-title font-serif text-5xl md:text-7xl lg:text-8xl font-medium text-brand-dark leading-[1.08] tracking-tight mb-4">
+                    Título Principal de
+                </h2>
+                <div class="gsap-hero-sub font-serif text-5xl md:text-7xl lg:text-8xl font-medium leading-[1.08] tracking-tight mb-8">
+                    <span class="italic text-brand-purple">
+                        <span id="typewriter-word"></span><span class="typewriter-cursor"></span>
+                    </span>
+                </div>
+
+                <p class="gsap-hero-text max-w-2xl mx-auto font-sans text-lg md:text-xl text-gray-500 mb-10 leading-relaxed">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+
+                <div class="gsap-hero-btns flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#contacto" class="btn-primary w-full sm:w-auto bg-brand-purple text-white px-8 py-4 rounded-full font-medium hover:bg-brand-purpleDark transition-all hover:shadow-xl hover:shadow-brand-purple/25 hover:-translate-y-1 flex items-center justify-center gap-2 group">
+                        Llamada a la Acción
+                        <i class="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#filosofia" class="w-full sm:w-auto px-8 py-4 rounded-full font-medium text-brand-dark border border-gray-300 hover:border-brand-purple hover:text-brand-purple transition-all flex items-center justify-center gap-2 hover:-translate-y-1">
+                        <i class="ph ph-play-circle text-xl"></i>
+                        Ver Más
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[10] gsap-hero-scroll">
+                <span class="font-sans text-[10px] uppercase tracking-widest text-gray-400">Scroll</span>
+                <div class="w-[1px] h-12 bg-gradient-to-b from-gray-400 to-transparent"></div>
+            </div>
+        </section>
+
+        <!-- =====================
+             FILOSOFÍA / QUOTE
+        ===================== -->
+        <section id="filosofia" class="py-32 bg-brand-light relative overflow-hidden">
+            <!-- Decorative large text -->
+            <div class="absolute -top-8 left-1/2 -translate-x-1/2 text-[20vw] font-serif font-bold text-outline whitespace-nowrap pointer-events-none select-none">PSICOANÁLISIS</div>
+
+            <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+                <i class="ph-fill ph-quotes text-5xl text-brand-purple/20 mb-8 inline-block float-anim"></i>
+                <blockquote class="filosofia-quote font-serif text-3xl md:text-5xl leading-[1.3] text-brand-dark">
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt, aliqua."
+                </blockquote>
+                <p class="mt-8 font-sans text-sm uppercase tracking-widest text-gray-400">— Texto de ejemplo</p>
+            </div>
+        </section>
+
+        <!-- =====================
+             MARQUEE DE PALABRAS CLAVE
+        ===================== -->
+        <div class="py-6 bg-white border-y border-gray-100 overflow-hidden">
+            <div class="marquee-wrapper">
+                <div class="marquee-track">
+                    <span class="inline-flex items-center gap-6 px-8">
+                        <span class="font-serif text-xl text-gray-300">Servicio 1</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Beneficio 2</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Categoría 3</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Categoría 4</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Categoría 5</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Región · País · Ciudad</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Beneficio 6</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Modalidad 7</span>
+                        <span class="text-brand-purple/30">✦</span>
+                    </span>
+                    <!-- Duplicado para loop infinito -->
+                    <span class="inline-flex items-center gap-6 px-8">
+                        <span class="font-serif text-xl text-gray-300">Servicio 1</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Beneficio 2</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Categoría 3</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Categoría 4</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Categoría 5</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Región · País · Ciudad</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Beneficio 6</span>
+                        <span class="text-brand-purple/30">✦</span>
+                        <span class="font-serif text-xl text-gray-300">Modalidad 7</span>
+                        <span class="text-brand-purple/30">✦</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- =====================
+             SÍNTOMAS
+        ===================== -->
+        <section class="py-24 bg-white relative overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[15vw] font-serif font-bold text-outline pointer-events-none select-none z-0">
+                TEXTO DECORATIVO
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="mb-16 text-center gsap-fade-up">
+                    <span class="section-tag">Categoría</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark">Ejemplo de Sección con Elementos</h2>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <div class="symptom-card group bg-brand-light/50 border border-gray-100 p-6 rounded-3xl hover:bg-brand-purple hover:border-brand-purple transition-all duration-500 text-center cursor-pointer hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-purple/20">
+                        <i class="ph ph-brain text-4xl text-brand-purple group-hover:text-white transition-colors duration-500 mb-4 inline-block"></i>
+                        <h4 class="font-sans font-medium text-brand-dark group-hover:text-white transition-colors duration-500 text-sm">Ítem 1</h4>
+                    </div>
+                    <div class="symptom-card group bg-brand-light/50 border border-gray-100 p-6 rounded-3xl hover:bg-brand-purple hover:border-brand-purple transition-all duration-500 text-center cursor-pointer hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-purple/20">
+                        <i class="ph ph-cloud-rain text-4xl text-brand-purple group-hover:text-white transition-colors duration-500 mb-4 inline-block"></i>
+                        <h4 class="font-sans font-medium text-brand-dark group-hover:text-white transition-colors duration-500 text-sm">Ítem 2</h4>
+                    </div>
+                    <div class="symptom-card group bg-brand-light/50 border border-gray-100 p-6 rounded-3xl hover:bg-brand-purple hover:border-brand-purple transition-all duration-500 text-center cursor-pointer hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-purple/20">
+                        <i class="ph ph-lightning text-4xl text-brand-purple group-hover:text-white transition-colors duration-500 mb-4 inline-block"></i>
+                        <h4 class="font-sans font-medium text-brand-dark group-hover:text-white transition-colors duration-500 text-sm">Ítem 3</h4>
+                    </div>
+                    <div class="symptom-card group bg-brand-light/50 border border-gray-100 p-6 rounded-3xl hover:bg-brand-purple hover:border-brand-purple transition-all duration-500 text-center cursor-pointer hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-purple/20">
+                        <i class="ph ph-warning-circle text-4xl text-brand-purple group-hover:text-white transition-colors duration-500 mb-4 inline-block"></i>
+                        <h4 class="font-sans font-medium text-brand-dark group-hover:text-white transition-colors duration-500 text-sm">Ítem 4</h4>
+                    </div>
+                    <div class="symptom-card group bg-brand-light/50 border border-gray-100 p-6 rounded-3xl hover:bg-brand-purple hover:border-brand-purple transition-all duration-500 text-center cursor-pointer hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-purple/20">
+                        <i class="ph ph-users text-4xl text-brand-purple group-hover:text-white transition-colors duration-500 mb-4 inline-block"></i>
+                        <h4 class="font-sans font-medium text-brand-dark group-hover:text-white transition-colors duration-500 text-sm">Ítem 5</h4>
+                    </div>
+                    <div class="symptom-card group bg-brand-light/50 border border-gray-100 p-6 rounded-3xl hover:bg-brand-purple hover:border-brand-purple transition-all duration-500 text-center cursor-pointer hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-purple/20">
+                        <i class="ph ph-heart-break text-4xl text-brand-purple group-hover:text-white transition-colors duration-500 mb-4 inline-block"></i>
+                        <h4 class="font-sans font-medium text-brand-dark group-hover:text-white transition-colors duration-500 text-sm">Ítem 6</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================
+             STATS / NÚMEROS
+        ===================== -->
+        <section class="py-24 bg-brand-dark text-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16 gsap-fade-up">
+                    <span class="section-tag section-tag-light">En cifras</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-medium mt-2">Años de experiencia que nos respaldan.</h2>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                    <div class="text-center gsap-scale-in">
+                        <div class="font-serif font-bold text-6xl md:text-7xl text-brand-accent mb-2">
+                            <span class="stat-counter" data-target="10" data-suffix="+">0</span>
+                        </div>
+                        <p class="font-sans text-sm text-gray-400 uppercase tracking-wider">Años de experiencia</p>
+                    </div>
+                    <div class="text-center gsap-scale-in">
+                        <div class="font-serif font-bold text-6xl md:text-7xl text-brand-accent mb-2">
+                            <span class="stat-counter" data-target="500" data-suffix="+">0</span>
+                        </div>
+                        <p class="font-sans text-sm text-gray-400 uppercase tracking-wider">Pacientes atendidos</p>
+                    </div>
+                    <div class="text-center gsap-scale-in">
+                        <div class="font-serif font-bold text-6xl md:text-7xl text-brand-accent mb-2">
+                            <span class="stat-counter" data-target="3">0</span>
+                        </div>
+                        <p class="font-sans text-sm text-gray-400 uppercase tracking-wider">Países de alcance</p>
+                    </div>
+                    <div class="text-center gsap-scale-in">
+                        <div class="font-serif font-bold text-6xl md:text-7xl text-brand-accent mb-2">
+                            <span class="stat-counter" data-target="98" data-suffix="%">0</span>
+                        </div>
+                        <p class="font-sans text-sm text-gray-400 uppercase tracking-wider">Índice de satisfacción</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================
+             ESPECIALIDADES
+        ===================== -->
+        <section id="servicios" class="py-32 bg-brand-dark text-white relative z-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gsap-fade-up">
+                    <div class="max-w-2xl">
+                        <span class="section-tag section-tag-light mb-3">Especialidades</span>
+                        <h2 class="font-serif text-4xl md:text-6xl font-medium">Cómo Podemos Ayudarte</h2>
+                    </div>
+                    <p class="font-sans text-gray-400 max-w-sm mt-6 md:mt-0 text-sm md:text-base">
+                        Lorem ipsum dolor sit amet consectetur adipiscing.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="service-card relative overflow-hidden rounded-3xl aspect-[4/5] group bg-white/5 border border-white/10 hover:border-brand-accent/60 transition-colors cursor-pointer">
+                        <!-- Terapia individual adultos: persona en sesión de terapia -->
+                        <div class="service-bg absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop');"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                            <div class="mb-4 bg-brand-accent w-12 h-12 rounded-full flex items-center justify-center transform -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                <i class="ph ph-user text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-serif text-3xl font-bold mb-2">Servicio Uno</h3>
+                            <p class="font-sans text-sm text-gray-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="service-card relative overflow-hidden rounded-3xl aspect-[4/5] group bg-white/5 border border-white/10 hover:border-brand-purple/60 transition-colors cursor-pointer">
+                        <!-- Terapia de pareja: dos personas conversando -->
+                        <div class="service-bg absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?q=80&w=800&auto=format&fit=crop');"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                            <div class="mb-4 bg-brand-purple w-12 h-12 rounded-full flex items-center justify-center transform -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                <i class="ph ph-users text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-serif text-3xl font-bold mb-2">Servicio Dos</h3>
+                            <p class="font-sans text-sm text-gray-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="service-card relative overflow-hidden rounded-3xl aspect-[4/5] group bg-white/5 border border-white/10 hover:border-brand-accent/60 transition-colors cursor-pointer">
+                        <!-- Adolescentes: joven estudiante -->
+                        <div class="service-bg absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800&auto=format&fit=crop');"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                            <div class="mb-4 bg-brand-accent w-12 h-12 rounded-full flex items-center justify-center transform -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                <i class="ph ph-student text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-serif text-3xl font-bold mb-2">Servicio Tres</h3>
+                            <p class="font-sans text-sm text-gray-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================
+             PROCESO TERAPÉUTICO
+        ===================== -->
+        <section id="proceso" class="py-32 bg-brand-light relative overflow-hidden">
+            <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-20 gsap-fade-up">
+                    <span class="section-tag">Metodología</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mt-2 mb-4">
+                        Nuestro Proceso, Paso a Paso
+                    </h2>
+                    <p class="font-sans text-gray-500 max-w-xl mx-auto leading-relaxed">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+
+                <!-- Línea conectora -->
+                <div class="relative hidden md:block mb-8">
+                    <div id="process-line" class="h-[1px] bg-gradient-to-r from-brand-purple/10 via-brand-purple/40 to-brand-purple/10 mx-16"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6">
+
+                    <!-- Paso 1 -->
+                    <div class="process-step relative text-center group cursor-default">
+                        <span class="process-step-number">01</span>
+                        <div class="process-step-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                            <i class="ph ph-phone-call text-brand-purple text-3xl"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-brand-dark mb-3">Paso Uno</h3>
+                        <p class="font-sans text-sm text-gray-500 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
+                        </p>
+                    </div>
+
+                    <!-- Paso 2 -->
+                    <div class="process-step relative text-center group cursor-default">
+                        <span class="process-step-number">02</span>
+                        <div class="process-step-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                            <i class="ph ph-magnifying-glass text-brand-purple text-3xl"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-brand-dark mb-3">Paso Dos</h3>
+                        <p class="font-sans text-sm text-gray-500 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis exercitation.
+                        </p>
+                    </div>
+
+                    <!-- Paso 3 -->
+                    <div class="process-step relative text-center group cursor-default">
+                        <span class="process-step-number">03</span>
+                        <div class="process-step-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                            <i class="ph ph-path text-brand-purple text-3xl"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-brand-dark mb-3">Paso Tres</h3>
+                        <p class="font-sans text-sm text-gray-500 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit.
+                        </p>
+                    </div>
+
+                    <!-- Paso 4 -->
+                    <div class="process-step relative text-center group cursor-default">
+                        <span class="process-step-number">04</span>
+                        <div class="process-step-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                            <i class="ph ph-shooting-star text-brand-purple text-3xl"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-brand-dark mb-3">Paso Cuatro</h3>
+                        <p class="font-sans text-sm text-gray-500 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="text-center mt-16 gsap-fade-up">
+                    <a href="#contacto" class="inline-flex items-center gap-2 font-sans text-brand-purple font-medium hover:gap-4 transition-all duration-300 group">
+                        Comenzar Ahora
+                        <i class="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================
+             MODALIDADES
+        ===================== -->
+        <section id="modalidad" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                    <div class="order-2 lg:order-1 relative modalidad-img">
+                        <div class="relative w-full aspect-square md:aspect-[4/3] rounded-[2rem] overflow-hidden shadow-xl">
+                            <!-- Consultorio: sala de terapia profesional y acogedora -->
+                            <img src="https://images.unsplash.com/photo-1586902279476-3244d8d18285?q=80&w=1000&auto=format&fit=crop" alt="Consultorio psicológico" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -bottom-8 -right-8 glass p-6 rounded-2xl max-w-xs shadow-2xl float-anim hidden md:block border border-white/40">
+                            <div class="flex items-center gap-4 mb-2">
+                                <div class="bg-brand-purple p-2.5 rounded-full">
+                                    <i class="ph ph-shield-check text-white text-xl"></i>
+                                </div>
+                                <h4 class="font-serif font-bold text-lg text-brand-dark">Atención Personalizada</h4>
+                            </div>
+                            <p class="font-sans text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur.</p>
+                        </div>
+                    </div>
+
+                    <div class="order-1 lg:order-2 gsap-fade-right">
+                        <span class="section-tag">Cómo Trabajamos</span>
+                        <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mb-8">El Espacio que Necesitas, <br><span class="text-brand-purple italic">donde lo necesites.</span></h2>
+
+                        <div class="space-y-8">
+                            <div class="flex gap-6 items-start group">
+                                <div class="bg-brand-light p-4 rounded-2xl shadow-sm text-brand-purple shrink-0 group-hover:bg-brand-purple group-hover:text-white transition-all duration-300">
+                                    <i class="ph ph-armchair text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-serif text-2xl font-bold mb-2">Modalidad Uno</h3>
+                                    <p class="font-sans text-gray-500 leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-6 items-start group">
+                                <div class="bg-brand-light p-4 rounded-2xl shadow-sm text-brand-purple shrink-0 group-hover:bg-brand-purple group-hover:text-white transition-all duration-300">
+                                    <i class="ph ph-desktop text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-serif text-2xl font-bold mb-2">Modalidad Dos</h3>
+                                    <p class="font-sans text-gray-500 leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud exercitation ullamco.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 p-6 bg-brand-light rounded-2xl border border-gray-100 flex items-center justify-between gap-4">
+                            <div>
+                                <span class="font-sans text-xs text-gray-400 uppercase tracking-wider block mb-1">Con el Profesional</span>
+                                <strong class="font-serif text-xl text-brand-dark">Nombre Apellido</strong>
+                            </div>
+                            <div class="h-10 w-[1px] bg-gray-200"></div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg" class="w-6 h-4 rounded-sm object-cover" alt="Mexico">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" class="w-6 h-4 rounded-sm object-cover" alt="Argentina">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg" class="w-6 h-4 rounded-sm object-cover" alt="Colombia">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================
+             TESTIMONIOS
+        ===================== -->
+        <section id="testimonios" class="py-32 bg-brand-light relative overflow-hidden">
+            <div class="absolute -top-20 -right-20 w-80 h-80 bg-brand-purple/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-20 -left-20 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="text-center mb-20 gsap-fade-up">
+                    <span class="section-tag">Testimonios</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mt-2 mb-4">
+                        Lo que Dicen <span class="italic text-brand-purple">Nuestros Clientes.</span>
+                    </h2>
+                    <p class="font-sans text-gray-500 max-w-xl mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                    <!-- Testimonio 1 -->
+                    <div class="testimonial-card bg-white rounded-3xl p-8 shadow-sm relative">
+                        <i class="ph-fill ph-quotes absolute top-6 right-6 text-5xl text-brand-purple/8"></i>
+                        <div class="flex mb-5">
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                        </div>
+                        <blockquote class="font-serif text-lg italic text-brand-dark leading-relaxed mb-7">
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        </blockquote>
+                        <div class="flex items-center gap-3">
+                            <div class="avatar-initial bg-brand-purple/10 text-brand-purple">N</div>
+                            <div>
+                                <p class="font-sans font-semibold text-brand-dark text-sm">Nombre G.</p>
+                                <p class="font-sans text-xs text-gray-400">Servicio · X meses</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonio 2 -->
+                    <div class="testimonial-card bg-white rounded-3xl p-8 shadow-sm relative">
+                        <i class="ph-fill ph-quotes absolute top-6 right-6 text-5xl text-brand-purple/8"></i>
+                        <div class="flex mb-5">
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                        </div>
+                        <blockquote class="font-serif text-lg italic text-brand-dark leading-relaxed mb-7">
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris."
+                        </blockquote>
+                        <div class="flex items-center gap-3">
+                            <div class="avatar-initial bg-brand-accent/10 text-brand-accent">C</div>
+                            <div>
+                                <p class="font-sans font-semibold text-brand-dark text-sm">Cliente A. y B.</p>
+                                <p class="font-sans text-xs text-gray-400">Servicio · X tiempo</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonio 3 -->
+                    <div class="testimonial-card bg-white rounded-3xl p-8 shadow-sm relative">
+                        <i class="ph-fill ph-quotes absolute top-6 right-6 text-5xl text-brand-purple/8"></i>
+                        <div class="flex mb-5">
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                            <i class="ph-fill ph-star star-icon text-lg"></i>
+                        </div>
+                        <blockquote class="font-serif text-lg italic text-brand-dark leading-relaxed mb-7">
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse."
+                        </blockquote>
+                        <div class="flex items-center gap-3">
+                            <div class="avatar-initial bg-brand-purple/10 text-brand-purple">N</div>
+                            <div>
+                                <p class="font-sans font-semibold text-brand-dark text-sm">Nombre M.</p>
+                                <p class="font-sans text-xs text-gray-400">Servicio · X meses</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================
+             FAQ
+        ===================== -->
+        <section id="faq" class="py-32 bg-white">
+            <div class="max-w-3xl mx-auto px-6">
+                <div class="text-center mb-16 gsap-fade-up">
+                    <span class="section-tag">Preguntas Frecuentes</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mt-2 mb-4">
+                        Preguntas <span class="italic text-brand-purple">Frecuentes.</span>
+                    </h2>
+                    <p class="font-sans text-gray-500">¿Tienes preguntas? Aquí respondemos las más comunes.</p>
+                </div>
+
+                <div class="space-y-3">
+
+                    <!-- FAQ 1 -->
+                    <div class="faq-item border border-gray-100 rounded-2xl overflow-hidden bg-white">
+                        <button class="faq-trigger">
+                            <span class="font-sans font-medium text-brand-dark">¿Pregunta frecuente de ejemplo número 1?</span>
+                            <div class="faq-icon-wrap w-9 h-9 rounded-full bg-brand-light border border-gray-200 flex items-center justify-center">
+                                <i class="ph ph-plus text-brand-purple text-lg"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content">
+                            <p class="font-sans text-gray-500 leading-relaxed px-6 pb-6">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item border border-gray-100 rounded-2xl overflow-hidden bg-white">
+                        <button class="faq-trigger">
+                            <span class="font-sans font-medium text-brand-dark">¿Pregunta frecuente de ejemplo número 2?</span>
+                            <div class="faq-icon-wrap w-9 h-9 rounded-full bg-brand-light border border-gray-200 flex items-center justify-center">
+                                <i class="ph ph-plus text-brand-purple text-lg"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content">
+                            <p class="font-sans text-gray-500 leading-relaxed px-6 pb-6">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="faq-item border border-gray-100 rounded-2xl overflow-hidden bg-white">
+                        <button class="faq-trigger">
+                            <span class="font-sans font-medium text-brand-dark">¿Pregunta frecuente de ejemplo número 3?</span>
+                            <div class="faq-icon-wrap w-9 h-9 rounded-full bg-brand-light border border-gray-200 flex items-center justify-center">
+                                <i class="ph ph-plus text-brand-purple text-lg"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content">
+                            <p class="font-sans text-gray-500 leading-relaxed px-6 pb-6">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="faq-item border border-gray-100 rounded-2xl overflow-hidden bg-white">
+                        <button class="faq-trigger">
+                            <span class="font-sans font-medium text-brand-dark">¿Pregunta frecuente de ejemplo número 4?</span>
+                            <div class="faq-icon-wrap w-9 h-9 rounded-full bg-brand-light border border-gray-200 flex items-center justify-center">
+                                <i class="ph ph-plus text-brand-purple text-lg"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content">
+                            <p class="font-sans text-gray-500 leading-relaxed px-6 pb-6">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="faq-item border border-gray-100 rounded-2xl overflow-hidden bg-white">
+                        <button class="faq-trigger">
+                            <span class="font-sans font-medium text-brand-dark">¿Pregunta frecuente de ejemplo número 5?</span>
+                            <div class="faq-icon-wrap w-9 h-9 rounded-full bg-brand-light border border-gray-200 flex items-center justify-center">
+                                <i class="ph ph-plus text-brand-purple text-lg"></i>
+                            </div>
+                        </button>
+                        <div class="faq-content">
+                            <p class="font-sans text-gray-500 leading-relaxed px-6 pb-6">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================
+             CONTACTO
+        ===================== -->
+        <section id="contacto" class="py-32 bg-brand-light relative">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="contacto-card bg-brand-dark text-white rounded-[3rem] overflow-hidden relative shadow-2xl">
+                    <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-purple opacity-15 blur-[100px] pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 w-1/3 h-1/2 bg-brand-accent opacity-10 blur-[80px] pointer-events-none"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <div class="p-12 md:p-16 flex flex-col justify-between relative z-10">
+                            <div>
+                                <span class="section-tag section-tag-light mb-6">Agenda tu cita</span>
+                                <h2 class="font-serif text-4xl md:text-5xl font-medium mb-6">Da el Primer Paso con Nosotros.</h2>
+                                <p class="font-sans text-gray-400 mb-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                                <div class="flex items-center gap-4 mb-5">
+                                    <div class="w-11 h-11 bg-brand-accent/20 rounded-full flex items-center justify-center shrink-0">
+                                        <i class="ph-fill ph-phone-call text-xl text-brand-accent"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-sans text-xs text-gray-500 uppercase tracking-wider">Teléfono directo</p>
+                                        <p class="font-sans text-lg font-medium">(000) 000-0000</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-11 h-11 bg-brand-accent/20 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                                        <i class="ph-fill ph-map-pin text-xl text-brand-accent"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-sans text-xs text-gray-500 uppercase tracking-wider">Ubicación</p>
+                                        <p class="font-sans text-sm font-medium leading-relaxed">Calle Ejemplo #100, Col. Ejemplo<br>Ciudad, Estado C.P. 00000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario -->
+                        <div class="bg-white text-brand-dark p-12 md:p-16">
+                            <h3 class="font-serif text-2xl font-bold mb-8">Escríbenos</h3>
+                            <form id="wa-form" class="space-y-7">
+                                <div class="relative">
+                                    <input type="text" id="wa-name" required class="input-tech peer placeholder-transparent" placeholder="Tu Nombre">
+                                    <label for="wa-name" class="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-brand-purple peer-focus:text-sm pointer-events-none">Tu Nombre</label>
+                                </div>
+
+                                <div class="relative">
+                                    <select id="wa-service" required class="input-tech text-brand-dark appearance-none cursor-pointer">
+                                        <option value="" disabled selected>Selecciona una especialidad</option>
+                                        <option value="Terapia Individual">Terapia Individual Adultos</option>
+                                        <option value="Terapia de Pareja">Terapia de Pareja</option>
+                                        <option value="Terapia para Adolescentes">Terapia para Adolescentes</option>
+                                        <option value="Terapia Online">Consulta Online General</option>
+                                    </select>
+                                    <i class="ph ph-caret-down absolute right-0 top-4 text-gray-400 pointer-events-none"></i>
+                                </div>
+
+                                <div class="relative pt-2">
+                                    <textarea id="wa-message" rows="3" class="input-tech peer placeholder-transparent resize-none" placeholder="¿Cómo podemos ayudarte?"></textarea>
+                                    <label for="wa-message" class="absolute left-0 top-0 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-5 peer-focus:top-0 peer-focus:text-brand-purple peer-focus:text-sm pointer-events-none">Breve motivo de consulta (opcional)</label>
+                                </div>
+
+                                <button type="submit" class="w-full bg-brand-dark text-white py-4 rounded-xl font-medium hover:bg-brand-purple transition-all hover:-translate-y-0.5 hover:shadow-lg flex justify-center items-center gap-2 group">
+                                    Enviar a WhatsApp
+                                    <i class="ph ph-whatsapp-logo text-xl group-hover:scale-110 transition-transform"></i>
+                                </button>
+                                <p class="text-center text-xs text-gray-400 flex items-center justify-center gap-1.5">
+                                    <i class="ph-fill ph-lock-key text-gray-400"></i>
+                                    Información 100% confidencial
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-white py-16 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-10 mb-12">
+                <div class="max-w-xs">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="logo.png" alt="Mi Negocio" class="footer-logo">
+                        <div>
+                            <h1 class="font-serif font-bold text-xl">Mi Negocio</h1>
+                            <span class="font-sans text-[10px] uppercase tracking-wider text-gray-500">Especialidad Profesional</span>
+                        </div>
+                    </div>
+                    <p class="font-sans text-sm text-gray-500 leading-relaxed">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Servicios profesionales de alta calidad.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <h3 class="font-sans text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Navegación</h3>
+                    <a href="#filosofia" class="font-sans text-sm text-gray-400 hover:text-white transition-colors">Sección 1</a>
+                    <a href="#proceso" class="font-sans text-sm text-gray-400 hover:text-white transition-colors">Sección 2</a>
+                    <a href="#servicios" class="font-sans text-sm text-gray-400 hover:text-white transition-colors">Sección 3</a>
+                    <a href="#testimonios" class="font-sans text-sm text-gray-400 hover:text-white transition-colors">Sección 4</a>
+                    <a href="#faq" class="font-sans text-sm text-gray-400 hover:text-white transition-colors">Sección 5</a>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <h3 class="font-sans text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Contacto</h3>
+                    <a href="tel:0000000000" class="font-sans text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                        <i class="ph ph-phone text-brand-accent"></i> (000) 000-0000
+                    </a>
+                    <p class="font-sans text-sm text-gray-400 flex items-start gap-2">
+                        <i class="ph ph-map-pin text-brand-accent mt-0.5"></i>
+                        <span>Calle Ejemplo #100<br>Ciudad, Estado C.P. 00000</span>
+                    </p>
+                    <div class="flex gap-3 mt-2">
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brand-purple flex items-center justify-center transition-all hover:scale-110">
+                            <i class="ph-fill ph-facebook-logo text-lg"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brand-purple flex items-center justify-center transition-all hover:scale-110">
+                            <i class="ph-fill ph-instagram-logo text-lg"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition-all hover:scale-110">
+                            <i class="ph-fill ph-tiktok-logo text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-sans text-xs text-gray-600">&copy; 2026 Nombre del Negocio. Todos los derechos reservados.</p>
+                <p class="font-sans text-xs text-gray-600">Servicios Profesionales · Ciudad, País</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a href="https://wa.me/520000000000?text=Hola,%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20los%20servicios." target="_blank" rel="noopener noreferrer"
+       class="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-50 group">
+        <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
+        <span class="absolute inset-0 rounded-full bg-[#25D366] opacity-50 animate-ping -z-10"></span>
+        <span class="absolute right-full mr-4 bg-white text-brand-dark text-sm px-3 py-1.5 rounded-lg font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none">
+            ¿Hablamos?
+        </span>
+    </a>
+
+    <!-- Script principal -->
+    <script src="script.js"></script>
+</body>
+</html>
